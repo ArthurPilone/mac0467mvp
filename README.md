@@ -19,4 +19,11 @@ $ pyenv shell 3.11.3
 $ poetry shell
 ```
 
+### Subindo o Servidor
+
+Para subir o servidor de produção, basta executar o comando:
+```[bash]
+$ python manage.py runserver
+``` 
+
 ### Aaa

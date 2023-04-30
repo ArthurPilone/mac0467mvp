@@ -26,4 +26,18 @@ Para subir o servidor de produção, basta executar o comando:
 $ python manage.py runserver
 ``` 
 
-### Aaa
+Além disso, é necessário expor a porta local do servidor às chamadas do Twilio, o faça usando o ngrok:
+
+```[bash]
+$ ngrok http 8000
+``` 
+
+Entre a saída do comando, identifique o endereço IP para encaminhamento (forwarding) das requests, o atualize entre os `ALLOWED_HOSTS` de `settings.py`, e o adicione como listenign point dentro do console do Twilio.
+
+### Contatando o Chatbot
+
+Envie a mensagem
+```
+join beat-perfect
+```
+para +1 415 523 8886

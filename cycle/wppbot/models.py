@@ -9,18 +9,21 @@ class ChatbotUser(models.Model):
 
 class Report(models.Model):
     class ReportState(models.TextChoices):
-        OPEN = "OPEN", _("Open")
         AWAIT_CATEGORY = "AWCT", _("Awaiting Category")
+        AWAIT_DESCRIPTION = "AWDC", _("Awaiting Description")
+        CONFIRM_DESCRIPTION = "CFDC", _("Awaiting Description")
+        AWAIT_LOCATION = "AWLC", _("Awaiting Localization")
         DONE = "DONE", _("Done")
 
     report_state = models.CharField(
         max_length=4,
         choices=ReportState.choices,
-        default=ReportState.OPEN,
+        default=ReportState.AWAIT_CATEGORY,
     )
 
-    authorId = models.ForeignKey(ChatbotUser, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(ChatbotUser, null=True, on_delete=models.SET_NULL)
     categoria = models.CharField(max_length=20)
     description = models.CharField(max_length=500)
+    dateCreated = models.DateTimeField(auto_now_add=True)
     #localização
     

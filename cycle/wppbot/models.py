@@ -1,7 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
-# Create your models here.
 class ChatbotUser(models.Model):
     user_contact_addr = models.CharField(max_length=40)
     number_of_reports = models.IntegerField(default=0)
@@ -26,4 +25,3 @@ class Report(models.Model):
     description = models.CharField(max_length=500)
     dateCreated = models.DateTimeField(auto_now_add=True)
     #localização
-    

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-s0bj@mf1tnk^)0pzglx9c*+%(+6f2)ec1wpb_k_pr7%c2qoig_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["2435-2804-14d-7840-8465-45c1-89cd-32f2-1f5f.sa.ngrok.io"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cycle.wppbot',
+    'cycle.promos',
 ]
 
 MIDDLEWARE = [

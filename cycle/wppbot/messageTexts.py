@@ -1,12 +1,12 @@
 
 welcome_message_text = \
-"""Olá, seja bem-vindo ao serviço de chatbot :)
+"""Olá, seja bem-vindo ao serviço de deúncias do CycleSpot :)
 Para fazer uma denúncia, digite 1.
 Para saber mais sobre o Bot do CycleSpot, digite 2.
 """ 
 
 welcome_back_message_text = \
-"""Olá de volta ao serviço de chatbot
+"""Olá de volta ao serviço de deúncias do CycleSpot
 Para fazer uma denúncia, digite 1.
 Para saber mais sobre o Bot do CycleSpot, digite 2.
 """ 
@@ -15,6 +15,7 @@ Para saber mais sobre o Bot do CycleSpot, digite 2.
 prompt_category_message_text = \
 """
 Ok, vamos começar. Qual o tipo de problema?
+
 Digite:
 '1' para problemas de Sinalização
 '2' para problemas 
@@ -41,4 +42,9 @@ def prompt_confirm_description(oldDescription):
 prompt_location_message_text = \
 """
 Utilize o WhatsApp para enviar a localização de onde encontrou o problema.
+"""
+
+present_reward_message_text = \
+"""
+Agradecemos sua denúncia. Fique com a dica de um dos nossos parceiros:\n
 """

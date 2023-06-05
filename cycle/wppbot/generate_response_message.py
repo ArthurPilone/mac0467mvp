@@ -1,8 +1,12 @@
 from decouple import config
 
+import random as rd
+import re
+
 from twilio.rest import Client
 
 from .models import ChatbotUser, Report
+from ..promos.models import PartnerPromotion, SingleUsePromotionalCode, PartnerAdvert
 from .report_state import *
 from .messageTexts import *
 
@@ -44,20 +48,23 @@ def generate_response_message(request):
 					report_handler = ReportAwaitingDescription(current_report)
 				case "CFDC":
 					report_handler = ReportConfirmDescription(current_report)
-				case "AWLC":
-					current_report.report_state = "DONE"
-					userObj.midReport = False
-					current_report.save()
-					userObj.save()
-					raise Exception("Report com estado inválido: " + "AAAAA")
 				case x:	
 					raise Exception("Report com estado inválido: " + x)
 
-			(new_midReport, messageText) = report_handler.interpret_message(incoming_message)
+			(conclusion, messageText) = report_handler.interpret_message(incoming_message)
 
-			if(new_midReport == False):
-				userObj.midReport = False
-				userObj.save()
+			match conclusion:
+				case "ABORT":
+					userObj.midReport = False
+					userObj.save()
+				case "REWARD":
+					userObj.midReport = False
+					userObj.save()
+
+					# Montar mensagem com recompensa
+					reward_text = generate_reward_text_message(userObj)
+					
+					messageText += reward_text
 
 		else:
 			if incoming_message[0] == "1":
@@ -76,3 +83,30 @@ def generate_response_message(request):
 	)
 
 	return message
+
+def generate_reward_text_message(userObj):
+	'''
+	Gera um texto a ser adicionado ao final da resposta dada ao usuário
+	para recompensá-lô com um código promocional ou anúncio 
+	'''
+
+	unused_promotional_codes = list(SingleUsePromotionalCode.objects.select_related("related_promotion").filter(used=False))
+
+	if(len(unused_promotional_codes) == 0):
+		adverts = list(PartnerAdvert.objects.all())
+		picked_advert = rd.choice(adverts) # Escolhe um anúnio aleatoriamente
+		return picked_advert.advert_text
+	
+	picked_code = rd.choice(unused_promotional_codes)
+	text = picked_code.related_promotion.promotion_text
+	text_with_code = re.sub("\[PROMO\_CODE\]",picked_code.code,text)
+
+	picked_code.used = True
+	picked_code.usedBy = userObj
+	picked_code.save()
+
+	return text_with_code
+
+	# Checar se usuário já recebeu código dessa promoção, e evitar dar 
+	#avaliable_promotions = PartnerPromotion.objects.all()
+	#used_promotions_codes = SingleUsePromotionalCode.objects.filter(used=True, usedBy=userObj.id).select_related("related_promotion")

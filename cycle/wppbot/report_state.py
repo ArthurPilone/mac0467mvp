@@ -46,12 +46,12 @@ class ReportAwaitingCategory(ReportState):
 			self.report.categoria = "Sinalização"
 			self.report.report_state = "AWDC"
 			self.report.save()
-			return (True, "Ok." + prompt_description_message_text)
+			return ("CONTINUE", "Ok." + prompt_description_message_text)
 		elif(message[0:4] == "Sair" or message[0:4] == 'sair'):
 			self.report.delete()
-			return (False, "Denúncia cancelada com sucesso!")
+			return ("ABORT", "Denúncia cancelada com sucesso!")
 		else:
-			return (True, "Ops, não entendi." + prompt_category_message_text)
+			return ("CONTINUE", "Ops, não entendi." + prompt_category_message_text)
 
 class ReportAwaitingDescription(ReportState):
 	"""
@@ -75,14 +75,14 @@ class ReportAwaitingDescription(ReportState):
 
 		if(message[0:4] == "Sair" or message[0:4] == 'sair'):
 			self.report.delete()
-			return (False, "Denúncia cancelada com sucesso!")
+			return ("ABORT", "Denúncia cancelada com sucesso!")
 		else:
 			if(len(message) > 500):
-				return(True, "Ops, sua descrição é muito longa." + prompt_description_message_text)
+				return("CONTINUE", "Ops, sua descrição é muito longa." + prompt_description_message_text)
 			self.report.description = message
 			self.report.report_state = "CFDC"
 			self.report.save()
-			return (True, "OK." + prompt_confirm_description(message))
+			return ("CONTINUE", "OK." + prompt_confirm_description(message))
 
 class ReportConfirmDescription(ReportState):
 	"""
@@ -108,15 +108,15 @@ class ReportConfirmDescription(ReportState):
 		if(message[0] == '1'):
 			self.report.report_state = "DONE" # Aqui trocar pra aguardando lcoalização
 			self.report.save()
-			return (False, "Ok. Obrigado pela Denúncia")
+			return ("REWARD", present_reward_message_text)
 		elif(message[0] == '2'):
 			self.report.report_state = "AWDC"
 			self.report.save()
-			return (True, "Ok." + prompt_description_message_text)
+			return ("CONTINUE", "Ok." + prompt_description_message_text)
 		elif(message[0:4] == "Sair" or message[0:4] == 'sair'):
 			self.report.delete()
-			return (False, "Denúncia cancelada com sucesso!")
+			return ("ABORT", "Denúncia cancelada com sucesso!")
 		else:
-			return (True, "Ops, não entendi." + prompt_confirm_description(self.report.description))
+			return ("CONTINUE", "Ops, não entendi." + prompt_confirm_description(self.report.description))
 
 		#if()

@@ -24,4 +24,6 @@ class Report(models.Model):
     categoria = models.CharField(max_length=20)
     description = models.CharField(max_length=500)
     dateCreated = models.DateTimeField(auto_now_add=True)
-    #localização
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
+    address = models.CharField(max_length=100, default="")

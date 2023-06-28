@@ -12,6 +12,8 @@ class Report(models.Model):
         AWAIT_DESCRIPTION = "AWDC", _("Awaiting Description")
         CONFIRM_DESCRIPTION = "CFDC", _("Awaiting Description")
         AWAIT_LOCATION = "AWLC", _("Awaiting Localization")
+        ASLEEP_NOTIFY = "ASLN", _("Notifying User")
+        ASLEEP_CONFIRM = "ASLC", _("Awaiting Confirmation")
         DONE = "DONE", _("Done")
 
     report_state = models.CharField(

@@ -42,11 +42,25 @@ class ReportAwaitingCategory(ReportState):
 		resposta a ser enviada ao cliente.
 		'''
 
-		if(message[0] == '1'):
-			self.report.categoria = "Sinalização"
+		if(message[0] in ['1', '2', '3', '4', '5', '6']):
+			match message[0]:
+				case '1':
+					self.report.categoria = "Sinalização"
+				case '2':
+					self.report.categoria = "Iluminação"
+				case '3':
+					self.report.categoria = "Segurança"
+				case '4':
+					self.report.categoria = "Acessibilidade"
+				case '5':
+					self.report.categoria = "Manutenção da Via"
+				case '6':
+					self.report.categoria = "Outros"
+			
 			self.report.report_state = "AWDC"
 			self.report.save()
 			return ("CONTINUE", "Ok." + prompt_description_message_text)
+		
 		elif(message[0:4] == "Sair" or message[0:4] == 'sair'):
 			self.report.delete()
 			return ("ABORT", "Denúncia cancelada com sucesso!")

@@ -21,6 +21,11 @@ $ poetry shell
 
 ### Subindo o Servidor
 
+Antes de rodar, devemos criar o banco de dados:
+```[bash]
+$ python manage.py migrate
+``` 
+
 Para subir o servidor de produção, basta executar o comando:
 ```[bash]
 $ python manage.py runserver
@@ -32,14 +37,14 @@ Além disso, é necessário expor a porta local do servidor às chamadas do Twil
 $ ngrok http 8000
 ``` 
 
-Entre a saída do comando, identifique o endereço IP para encaminhamento (forwarding) das requests, o atualize entre os `ALLOWED_HOSTS` de `settings.py`, e o adicione como listenign point dentro do console do Twilio.
+Entre a saída do comando, identifique o endereço IP para encaminhamento (forwarding) das requests, o atualize entre os `ALLOWED_HOSTS` de `settings.py`, e o adicione como listenign point dentro do console do Twilio (Sandbox settings -> When a message comes in), adicionando ao final `/bot/msgin`
 
-Não se esqueça de preencher o .env com as credenciais do Twilio!! ( `TWILIO_ACCOUNT_SID e TWILIO_AUTH_TOKEN`)
+Não se esqueça de preencher o .env com as credenciais do Twilio ( `TWILIO_ACCOUNT_SID e TWILIO_AUTH_TOKEN`), utilizando as `Live credentials`.
 
 ### Contatando o Chatbot
 
 Envie a mensagem
 ```
-join beat-perfect
+join <nome-do-chat> 
 ```
 para +1 415 523 8886

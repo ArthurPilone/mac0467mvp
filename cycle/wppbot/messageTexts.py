@@ -7,7 +7,7 @@ Para configurar a frequência das ofertas que você pode receber periodicamente,
 """ 
 
 welcome_back_message_text = \
-"""Olá de volta ao serviço de deúncias do CycleSpot
+"""Bem vindo ao serviço de deúncias do CycleSpot
 Para fazer uma denúncia, digite 1.
 Para saber mais sobre o Bot do CycleSpot, digite 2.
 Para configurar a frequência das ofertas que você pode receber periodicamente, digite 3.
@@ -45,7 +45,8 @@ def prompt_confirm_description(oldDescription):
 
 prompt_location_message_text = \
 """
-Utilize o WhatsApp para enviar a localização de onde encontrou o problema.
+Utilize o WhatsApp para enviar a localização de onde encontrou o problema.\n
+
 Se você não souber como fazer isto, não tem problema!
 Basta consultar este site aqui: https://canaltech.com.br/apps/como-enviar-sua-localizacao-pelo-whatsapp/
 """
@@ -83,3 +84,5 @@ Digite:
 '5' para receber ofertas a cada 2 semanas
 '6' para não receber ofertas
 """
+
+frequency_set = 'Preferência salva!'

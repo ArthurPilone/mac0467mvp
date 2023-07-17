@@ -17,7 +17,7 @@ client = Client(account_sid, auth_token)
 
 
 def generate_response_message(request):
-	#print(request.POST)
+	print(request.POST)
 	receiving_no = request.POST["To"]
 	user_phone = request.POST["From"]
 	incoming_message = request.POST["Body"]
@@ -99,7 +99,8 @@ def generate_response_message(request):
 		
 			if incoming_message[0] in ["1", "2", "3", "4", "5", "6"]:
 				generate_response_message.setFrequencyMode = False
-				
+			
+			messageText = frequency_set
 			if   incoming_message[0] == "1":
 				generate_response_message.promotionDelay = 86400
 			elif incoming_message[0] == "2":
@@ -113,7 +114,8 @@ def generate_response_message(request):
 			elif incoming_message[0] == "6":
 				generate_response_message.promotionDelay = -1
 			else:
-				message_text = "Ops, não entendi." + choose_frequency 
+				messageText = "Ops, não entendi." + choose_frequency
+			
 		
 		else:
 			if incoming_message[0] == "1":
@@ -129,7 +131,7 @@ def generate_response_message(request):
 				generate_response_message.setFrequencyMode = True
 			
 			else:
-			    messageText = welcome_back_message_text
+				messageText = welcome_back_message_text
 
 	message = client.messages.create(
 		from_=receiving_no,
